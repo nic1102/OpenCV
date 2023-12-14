@@ -1,6 +1,7 @@
 import cv2
 import PIL
 import time
+import math
 from PIL import Image
 from PIL import ImageDraw
 import numpy as np
@@ -28,7 +29,7 @@ def get_color(img, first_point, second_point, third_point):
     return color
 
 def is_color_same(first, second, distance):
-    if (math.sqrt((first[0] - second[0]) ** 2 + (first[1] - second[1]) ** 2 + (first[2] - second[2]) ** 2) <= distance):
+    if math.sqrt((first[0] - second[0]) ** 2 + (first[1] - second[1]) ** 2 + (first[2] - second[2]) ** 2) <= distance:
         return True
     else:
         return False
@@ -45,12 +46,12 @@ def is_common(first, second):
 
 if __name__ == "__main__":
     start = time.perf_counter()
-    img = cv2.imread('images/test_4.jpg')
+    img = cv2.imread('images/sergey.jpg')
     img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
     new_img = np.zeros(img.shape, dtype="uint8")
 
-    corners = cv2.goodFeaturesToTrack(img, 500000, 0.0001, 10)
+    corners = cv2.goodFeaturesToTrack(img, 500000, 0.0001, 25)
     corners = np.intp(corners)
     new_corners = []
     for i in corners:
@@ -65,7 +66,7 @@ if __name__ == "__main__":
 
 
     # image = Image.new('RGB', (width, height), "#000000")
-    image = Image.open("images/test_4.jpg")
+    image = Image.open("images/sergey.jpg")
     #image = Image.new("RGB", size = (6000,4000))
     draw = ImageDraw.Draw(image)
     width = image.size[0]
@@ -87,9 +88,9 @@ if __name__ == "__main__":
     j = 1
 
 
-    while(i<len(smart_triangles)-1):
-        while(j<len(smart_triangles)):
-            if (is_common(smart_triangles[i],smart_triangles[j]) and is_color_same(smart_triangles[i].fill,smart_triangles[j].fill,15) and smart_triangles[j].is_count == False):
+    while i<len(smart_triangles)-1:
+        while j<len(smart_triangles):
+            if is_common(smart_triangles[i], smart_triangles[j]) and is_color_same(smart_triangles[i].fill, smart_triangles[j].fill, 15) and smart_triangles[j].is_count == False:
                 #smart_triangles[i].neighbors.append(smart_triangles[j].numero)
                 #smart_triangles[j].neighbors.append(smart_triangles[i].numero)
 
