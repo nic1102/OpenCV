@@ -2,18 +2,20 @@ from scipy.spatial import Delaunay
 import numpy as np
 from PIL import Image
 from PIL import ImageDraw
+
+from ImageFile import ImageFile
 from Primitive import Triangle
-import random
 import math
 import cv2
 import uuid
 
-class Triangulation:
+
+class Triangulation(ImageFile):
 
     def __init__(self, path):
+        super().__init__(path)
         self.triangles = []
         self.smart_triangles = []
-        self.path = path
 
     def triangulate(self, vertices):
         tri = Delaunay(vertices)
@@ -48,66 +50,48 @@ class Triangulation:
                 else:
                     return False
 
-    def __pillow_init(self):
-        # image = Image.new('RGB', (width, height), "#000000")
-        image = Image.open(self.path)
-        # image = Image.new("RGB", size = (6000,4000))
-        draw = ImageDraw.Draw(image)
-        self.width = image.size[0]
-        self.height = image.size[1]
-        pix = image.load()
-
-    def do_triangulation(self):
-        img = cv2.imread(self.path)
-        img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        corners = cv2.goodFeaturesToTrack(img, 500000, 0.0001, 25)
+    def do_triangulation(self, max_corners, quality, min_distance):
+        self.img = cv2.cvtColor(self.img, cv2.COLOR_BGR2GRAY)
+        corners = cv2.goodFeaturesToTrack(self.img, max_corners, quality, min_distance)
         corners = np.intp(corners)
         new_corners = []
         for i in corners:
             x, y = i.ravel()
             new_corners.append((x, y))
         self.triangulate(new_corners)
-
-
-
         for i in range(0, len(self.triangles), 1):
             first = self.triangles[i][0]
             second = self.triangles[i][1]
             third = self.triangles[i][2]
             triangle = (new_corners[first], new_corners[second], new_corners[third])
-            fill = self.get_color(img, image.getpixel(triangle[0]), image.getpixel(triangle[1]), image.getpixel(triangle[2]))
-            numero = i
-            smart_triangles.append(Triangle(triangle, fill, numero))
-        print(len(smart_triangles))
+            fill = self.get_color(self.img, self.image.getpixel(triangle[0]), self.image.getpixel(triangle[1]), self.image.getpixel(triangle[2]))
+            number = i
+            self.smart_triangles.append(Triangle(triangle, fill, number))
+        print(len(self.smart_triangles))
         i = 0
         j = 1
 
-        while i < len(smart_triangles) - 1:
-            while j < len(smart_triangles):
-                if self.is_common(smart_triangles[i], smart_triangles[j]) and self.is_color_same(smart_triangles[i].fill,
-                                                                                       smart_triangles[j].fill, 15) and \
-                        smart_triangles[j].is_count == False:
-                    # smart_triangles[i].neighbors.append(smart_triangles[j].numero)
-                    # smart_triangles[j].neighbors.append(smart_triangles[i].numero)
+        while i < len(self.smart_triangles) - 1:
+            while j < len(self.smart_triangles):
+                if self.is_common(self.smart_triangles[i], self.smart_triangles[j]) and self.is_color_same(self.smart_triangles[i].fill,
+                                                                                       self.smart_triangles[j].fill, 15) and \
+                        self.smart_triangles[j].is_count == False:
+                    # smart_triangles[i].neighbors.append(smart_triangles[j].number)
+                    # smart_triangles[j].neighbors.append(smart_triangles[i].number)
 
-                    smart_triangles[i].is_count = True
-                    smart_triangles[j].is_count = True
+                    self.smart_triangles[i].is_count = True
+                    self.smart_triangles[j].is_count = True
 
-                    smart_triangles[j].fill = smart_triangles[i].fill
+                    self.smart_triangles[j].fill = self.smart_triangles[i].fill
                     # draw.polygon(smart_triangles[j].triangle, fill=smart_triangles[j].fill)
 
                 else:
-                    smart_triangles[i].is_count = False
-                    smart_triangles[j].is_count = False
+                    self.smart_triangles[i].is_count = False
+                    self.smart_triangles[j].is_count = False
 
                     # smart_triangles.pop(j)
                 j += 1
             i += 1
-
-
-
-        for i in range(0, len(smart_triangles), 1):
-            draw.polygon(smart_triangles[i].triangle, fill=smart_triangles[i].fill)
-
-
-        image.save(r'Z:\Results\\' + str(uuid.uuid4()) + 'result.png')
+        for i in range(0, len(self.smart_triangles), 1):
+            self.draw.polygon(self.smart_triangles[i].triangle, self.smart_triangles[i].fill)
+        self.image.save(r'Z:\Results\\' + str(uuid.uuid4()) + 'result.png')

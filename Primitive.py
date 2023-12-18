@@ -9,6 +9,8 @@ class Triangle:
     sides = []
     neighbors = []
     def __init__(self,triangle,fill,numero):
+        self.sides = []
+        self.neighbors = []
         self.triangle = triangle
         self.sides.append((triangle[0],triangle[1]))
         self.sides.append((triangle[1], triangle[2]))
@@ -16,6 +18,12 @@ class Triangle:
         self.fill = fill
         self.is_count = False
         self.numero = numero
+
+
+class Point:
+    def __init__(self,xy:tuple):
+        self.x = xy[0]
+        self.y = xy[1]
 
 
 
