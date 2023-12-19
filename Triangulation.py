@@ -9,17 +9,17 @@ import cv2
 
 class Triangulation(ImageFile):
 
-    def __init__(self, path):
+    def __init__(self, path: str):
         super().__init__(path)
         self.triangles = []
         self.smart_triangles = []
 
-    def triangulate(self, vertices):
+    def triangulate(self, vertices: list):
         tri = Delaunay(vertices)
         self.triangles = tri.simplices.tolist()
 
     @staticmethod
-    def get_color(self, img, first_point, second_point, third_point) -> tuple:
+    def get_color(first_point: tuple, second_point: tuple, third_point: tuple) -> tuple:
         color = (
             (first_point[0] + second_point[0] + third_point[0]) // 3,
             (first_point[1] + second_point[1] + third_point[1]) // 3,
@@ -32,7 +32,6 @@ class Triangulation(ImageFile):
         return math.sqrt((first[0] - second[0]) ** 2
                          + (first[1] - second[1]) ** 2
                          + (first[2] - second[2]) ** 2) <= distance
-
 
     @staticmethod
     def is_common(self, first, second) -> bool:
@@ -59,8 +58,7 @@ class Triangulation(ImageFile):
             triangle = (new_corners[self.triangles[i][0]],
                         new_corners[self.triangles[i][1]],
                         new_corners[self.triangles[i][2]])
-            fill = self.get_color(self,
-                                  self.img,
+            fill = self.get_color(
                                   self.image.getpixel(triangle[0]),
                                   self.image.getpixel(triangle[1]),
                                   self.image.getpixel(triangle[2])

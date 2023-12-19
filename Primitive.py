@@ -9,7 +9,7 @@ class Triangle:
     fill = (red, green, blue)
     """
 
-    def __init__(self,triangle,fill,number):
+    def __init__(self, triangle: tuple, fill: tuple, number: int):
         self.sides = []
         self.neighbors = []
         self.triangle = triangle
