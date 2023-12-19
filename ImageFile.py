@@ -1,9 +1,8 @@
-import os.path
-import PIL
 from PIL import Image
 from PIL import ImageDraw
-from config import image_size
+import uuid
 import cv2
+
 
 class ImageFile:
     def __init__(self, path):
@@ -14,6 +13,7 @@ class ImageFile:
         self.height = self.image.size[1]
         self.pix = self.image.load()
         self.img = cv2.imread(path)
+        self.file_name = str(uuid.uuid4())
 
     @staticmethod
     def __new_image(self, color, size: tuple):

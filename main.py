@@ -1,6 +1,5 @@
-import os.path
-
 from Triangulation import Triangulation
 
 if __name__ == "__main__":
-    tr = Triangulation("/images/spider.jpg")
+    ex = Triangulation("images/list.jpg")
+    ex.do_triangulation(10000, 0.003, 50)
