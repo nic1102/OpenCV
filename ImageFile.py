@@ -15,7 +15,6 @@ class ImageFile:
         self.pix = self.image.load()
         self.img = cv2.imread(path)
 
-
     @staticmethod
     def __new_image(self, color, size: tuple):
         image = Image.new('RGB', size, color)
