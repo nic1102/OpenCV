@@ -1,13 +1,14 @@
 class Triangle:
-    #triangle = [(x1,y1), (x2,y2), (x3,y3)]
-    #sides = [
-    # ((x1,y1),(x2,y2)),
-    # ((x2,y2),(x3,y3)),
-    # ((x3,y3),(x1,y1))
-    # ]
-    #fill = (red, green, blue)
-    sides = []
-    neighbors = []
+    """
+    triangle = [(x1,y1), (x2,y2), (x3,y3)]
+    sides = [
+             ((x1,y1),(x2,y2)),
+             ((x2,y2),(x3,y3)),
+             ((x3,y3),(x1,y1))
+            ]
+    fill = (red, green, blue)
+    """
+
     def __init__(self,triangle,fill,number):
         self.sides = []
         self.neighbors = []
@@ -21,7 +22,7 @@ class Triangle:
 
 
 class Point:
-    def __init__(self,xy:tuple):
+    def __init__(self, xy: tuple):
         self.x = xy[0]
         self.y = xy[1]
 

@@ -19,7 +19,7 @@ class Triangulation(ImageFile):
         self.triangles = tri.simplices.tolist()
 
     @staticmethod
-    def get_color(self, img, first_point, second_point, third_point):
+    def get_color(self, img, first_point, second_point, third_point) -> tuple:
         color = (
             (first_point[0] + second_point[0] + third_point[0]) // 3,
             (first_point[1] + second_point[1] + third_point[1]) // 3,
@@ -28,14 +28,14 @@ class Triangulation(ImageFile):
         return color
 
     @staticmethod
-    def is_color_same(self, first, second, distance):
+    def is_color_same(self, first, second, distance) -> bool:
         return math.sqrt((first[0] - second[0]) ** 2
                          + (first[1] - second[1]) ** 2
                          + (first[2] - second[2]) ** 2) <= distance
 
 
     @staticmethod
-    def is_common(self, first, second):
+    def is_common(self, first, second) -> bool:
         for i in range(0, 3, 1):
             for j in range(0, 3, 1):
                 if (first.sides[i] == second.sides[j] or list(reversed(first.sides[i])) == list(
