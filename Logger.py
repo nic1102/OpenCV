@@ -7,7 +7,7 @@ class Logger:
         ...
 
     @staticmethod
-    def send_log(width, height, file_name):
+    def send_log(width: int, height: int, file_name: str):
         time = datetime.datetime.now().__str__()
         log = {
             "time": time,

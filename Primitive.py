@@ -13,7 +13,7 @@ class Triangle:
         self.sides = []
         self.neighbors = []
         self.triangle = triangle
-        self.sides.append((triangle[0],triangle[1]))
+        self.sides.append((triangle[0], triangle[1]))
         self.sides.append((triangle[1], triangle[2]))
         self.sides.append((triangle[2], triangle[0]))
         self.fill = fill

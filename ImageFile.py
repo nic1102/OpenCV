@@ -5,7 +5,7 @@ import cv2
 
 
 class ImageFile:
-    def __init__(self, path):
+    def __init__(self, path: str):
         self.path = path
         self.image = Image.open(self.path)
         self.draw = ImageDraw.Draw(self.image)
