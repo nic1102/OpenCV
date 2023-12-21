@@ -16,5 +16,5 @@ class ImageFile:
         self.file_name = str(uuid.uuid4())
 
     @staticmethod
-    def __new_image(self, color, size: tuple):
-        image = Image.new('RGB', size, color)
+    def __new_image(color: tuple, size: tuple):
+        return Image.new('RGB', size, color)

@@ -54,6 +54,10 @@ class Triangulation(ImageFile):
         for i in corners:
             x, y = i.ravel()
             new_corners.append((x, y))
+        new_corners.append((0,0))
+        new_corners.append((self.width - 1, 0))
+        new_corners.append((self.width - 1, self.height - 1))
+        new_corners.append((0, self.height - 1))
         self.triangulate(new_corners)
         for i in range(0, len(self.triangles), 1):
             triangle = (new_corners[self.triangles[i][0]],
