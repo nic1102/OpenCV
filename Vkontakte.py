@@ -6,11 +6,10 @@ from vk_api.bot_longpoll import VkBotEventType
 from secret import *
 
 
-vk = vk_api.VkApi(token = group_token)
-
+vk = vk_api.VkApi(token = access_token)
 
 def create_post():
-    vk.method("wall.post",{
+    vk.method("wall.post", {
         'v': '5.199',
         'access_token': access_token,
         'owner_id': -1,
