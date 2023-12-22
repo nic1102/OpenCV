@@ -4,7 +4,7 @@ import vk_api.vk_api
 from vk_api.bot_longpoll import VkBotLongPoll
 from vk_api.bot_longpoll import VkBotEventType
 from secret import *
-
+import requests
 
 vk = vk_api.VkApi(token = access_token)
 
@@ -22,8 +22,7 @@ def send_msg(user_id,text):
     vk.method("messages.send", {
         "user_id": user_id,
         "message": text,
-        "random_id": 4
+        "random_id": 6
     })
-
 
 create_post()
