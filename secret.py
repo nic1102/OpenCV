@@ -3,3 +3,5 @@ group_token = "vk1.a.UqK1lMyd_GMIhA-Lry6ve_W3duA-av1Q6Bl6QMRTqz6vE6JpOk4dC5j-j8z
 private_key = "mTaVfYcwuf1p3Fuyvvem"
 service_key = "78b5aba078b5aba078b5aba0a97ba00ae8778b578b5aba01db747a44ff30bbf56d8b2d7"
 secret_key = "ccf94906195f991a20"
+telegram_token = "6503356091:AAHxRdsoN2FF5PUozSkcDpKlOho-xvAoAjU"
+yandex_token = "y0_AgAAAABGPmDhAAsIzgAAAAD1niqDHt1kLJdERxiGzKfwxxLGS-WK5mQ" #23/12/2023 -> 1year
