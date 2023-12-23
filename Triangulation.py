@@ -45,7 +45,6 @@ class Triangulation(ImageFile):
                 else:
                     return False
 
-
     def do_triangulation(self, max_corners: int, quality: float, min_distance: int):
         self.img = cv2.cvtColor(self.img, cv2.COLOR_BGR2GRAY)
         corners = cv2.goodFeaturesToTrack(self.img, max_corners, quality, min_distance)
