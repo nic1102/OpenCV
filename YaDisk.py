@@ -6,7 +6,7 @@ class YaDisk:
     def __init__(self):
         self.disk = yadisk.YaDisk(token=yandex_token)
 
-    def save_images(self, images: list):
+    def save_images(self, images: list, is_raw: bool):
         ...
 
 
