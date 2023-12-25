@@ -9,6 +9,12 @@ class YaDisk:
     def save_images(self, images: list, is_raw: bool):
         ...
 
+    def check_raw_images(self):
+        ...
+
+
+
+
 
 y = YaDisk()
 y.disk.upload(r"images/096.JPG", "/Test_Dir/096.JPG")

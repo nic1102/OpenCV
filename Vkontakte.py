@@ -26,5 +26,8 @@ class Vkontakte(Social):
         })
 
 
+vk = Vkontakte()
+vk.send_post()
+
 
 

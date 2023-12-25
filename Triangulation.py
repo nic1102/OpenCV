@@ -28,13 +28,13 @@ class Triangulation(ImageFile):
         return color
 
     @staticmethod
-    def is_color_same(self, first, second, distance) -> bool:
+    def is_color_same(first, second, distance) -> bool:
         return math.sqrt((first[0] - second[0]) ** 2
                          + (first[1] - second[1]) ** 2
                          + (first[2] - second[2]) ** 2) <= distance
 
     @staticmethod
-    def is_common(self, first, second) -> bool:
+    def is_common(first, second) -> bool:
         for i in range(0, 3, 1):
             for j in range(0, 3, 1):
                 if (first.sides[i] == second.sides[j] or list(reversed(first.sides[i])) == list(
@@ -74,7 +74,7 @@ class Triangulation(ImageFile):
 
         while i < len(self.smart_triangles) - 1:
             while j < len(self.smart_triangles):
-                if self.is_common(self, self.smart_triangles[i], self.smart_triangles[j]) and self.is_color_same(
+                if self.is_common(self.smart_triangles[i], self.smart_triangles[j]) and self.is_color_same(
                         self.smart_triangles[i].fill,
                         self.smart_triangles[j].fill, 15) and \
                         self.smart_triangles[j].is_count is False:
