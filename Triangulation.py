@@ -53,10 +53,10 @@ class Triangulation(ImageFile):
         for i in corners:
             x, y = i.ravel()
             new_corners.append((x, y))
-        new_corners.append((0,0))
-        new_corners.append((self.width - 1, 0))
-        new_corners.append((self.width - 1, self.height - 1))
-        new_corners.append((0, self.height - 1))
+        #new_corners.append((0,0))
+        #new_corners.append((self.width - 1, 0))
+        #new_corners.append((self.width - 1, self.height - 1))
+        #new_corners.append((0, self.height - 1))
         self.triangulate(new_corners)
         for i in range(0, len(self.triangles), 1):
             triangle = (new_corners[self.triangles[i][0]],
@@ -92,3 +92,18 @@ class Triangulation(ImageFile):
             self.draw.polygon(self.smart_triangles[i].triangle, self.smart_triangles[i].fill)
         self.image.save(r'results/' + self.file_name + '.png')
         Logger.send_log(self.width, self.height, self.file_name)
+
+
+    def task(self, step):
+        for x in range(0, self.width, 1):
+            for y in range(0, self.height, 1):
+                if self.image.getpixel((x, y)) == (0, 0, 0):
+                    continue
+                else:
+                    new_color = (
+                        (self.image.getpixel((x,y))[0]) % 255,
+                        (self.image.getpixel((x, y))[1]) % 255,
+                        (self.image.getpixel((x, y))[2] + step) % 255
+                    )
+                    self.image.putpixel((x,y), new_color)
+        self.image.save(r'results/' + self.file_name + '.png')
