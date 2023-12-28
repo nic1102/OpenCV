@@ -17,4 +17,4 @@ class YaDisk:
 
 
 y = YaDisk()
-y.disk.upload(r"images/096.JPG", "/Test_Dir/096.JPG")
+y.disk.download("/Test_Dir", "C:\\Users\\Андрей\\PycharmProjects\\OpenCV\\images\\image1")
