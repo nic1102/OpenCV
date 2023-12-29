@@ -1,3 +1,5 @@
+import random
+
 from scipy.spatial import Delaunay
 import numpy as np
 from Logger import Logger
@@ -37,10 +39,12 @@ class Triangulation(ImageFile):
     def is_common(first, second) -> bool:
         for i in range(0, 3, 1):
             for j in range(0, 3, 1):
-                if (first.sides[i] == second.sides[j] or list(reversed(first.sides[i])) == list(
-                        reversed(second.sides[j]))):
-                    first.neighbors.append(second.numero)
-                    second.neighbors.append(first.numero)
+                if (first.sides[i] == second.sides[j] or
+                        tuple(reversed(first.sides[i])) == tuple(reversed(second.sides[j])) or
+                        tuple(reversed(first.sides[i])) == second.sides[j] or
+                        first.sides[i] or tuple(reversed(second.sides[j]))):
+                    first.neighbors.append(second.number)
+                    second.neighbors.append(first.number)
                     return True
                 else:
                     return False
@@ -94,16 +98,44 @@ class Triangulation(ImageFile):
         Logger.send_log(self.width, self.height, self.file_name)
 
 
-    def task(self, step):
-        for x in range(0, self.width, 1):
-            for y in range(0, self.height, 1):
-                if self.image.getpixel((x, y)) == (0, 0, 0):
-                    continue
+    def task(self, step, n):
+        temp_array = []
+        for i in range(0, n, 1):
+            temp_array.append((random.randint(0, self.width - 1),
+                               random.randint(0, self.height -1))
+                              )
+        self.triangulate(temp_array)
+        for i in range(0, len(self.triangles), 1):
+            triangle = (temp_array[self.triangles[i][0]],
+                        temp_array[self.triangles[i][1]],
+                        temp_array[self.triangles[i][2]])
+            fill = self.get_color(
+                                  self.image.getpixel(triangle[0]),
+                                  self.image.getpixel(triangle[1]),
+                                  self.image.getpixel(triangle[2])
+                                  )
+            self.smart_triangles.append(Triangle(triangle, fill, i))
+
+        i = 0
+        j = 0
+
+        while i < len(self.smart_triangles) - 1:
+            while j < len(self.smart_triangles):
+                if (self.is_common(self.smart_triangles[i], self.smart_triangles[j]) and
+                        self.is_color_same(self.smart_triangles[i].fill, self.smart_triangles[j].fill, 40) and
+                        self.smart_triangles[j].is_counted is False):
+
+                    self.smart_triangles[i].is_counted = True
+                    self.smart_triangles[j].is_counted = True
+
+                    self.smart_triangles[j].fill = self.smart_triangles[i].fill
                 else:
-                    new_color = (
-                        (self.image.getpixel((x,y))[0]) % 255,
-                        (self.image.getpixel((x, y))[1]) % 255,
-                        (self.image.getpixel((x, y))[2] + step) % 255
-                    )
-                    self.image.putpixel((x,y), new_color)
+                    self.smart_triangles[i].is_counted = False
+                    self.smart_triangles[j].is_counted = False
+                j += 1
+            i += 1
+        for i in range(0, len(self.smart_triangles), 1):
+            self.draw.polygon(self.smart_triangles[i].triangle, self.smart_triangles[i].fill)
+
+
         self.image.save(r'results/' + self.file_name + '.png')
