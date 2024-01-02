@@ -10,8 +10,8 @@ class Triangle:
     """
 
     def __init__(self, triangle: tuple, fill: tuple, number: int):
-        self.sides = []
-        self.neighbors = []
+        self.sides = list()
+        self.neighbors = list()
         self.triangle = triangle
         self.sides.append((triangle[0], triangle[1]))
         self.sides.append((triangle[1], triangle[2]))

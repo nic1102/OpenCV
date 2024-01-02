@@ -12,9 +12,5 @@ class YaDisk:
     def check_raw_images(self):
         ...
 
-
-
-
-
 y = YaDisk()
 y.disk.download("/Test_Dir", "C:\\Users\\Андрей\\PycharmProjects\\OpenCV\\images\\image1")
