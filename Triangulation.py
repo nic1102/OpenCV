@@ -94,15 +94,15 @@ class Triangulation(ImageFile):
                         self.is_color_same(
                             self.smart_triangles[i].fill,
                             self.smart_triangles[j].fill, 15) and
-                        self.smart_triangles[j].is_count is False):
+                        self.smart_triangles[j].is_counted is False):
 
-                    self.smart_triangles[i].is_count = True
-                    self.smart_triangles[j].is_count = True
+                    self.smart_triangles[i].is_counted = True
+                    self.smart_triangles[j].is_counted = True
 
                     self.smart_triangles[j].fill = self.smart_triangles[i].fill
                 else:
-                    self.smart_triangles[i].is_count = False
-                    self.smart_triangles[j].is_count = False
+                    self.smart_triangles[i].is_counted = False
+                    self.smart_triangles[j].is_counted = False
                 j += 1
             i += 1
         for i in range(0, len(self.smart_triangles), 1):
