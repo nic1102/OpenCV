@@ -21,6 +21,11 @@ class Triangulation(ImageFile):
         self.triangles = tri.simplices.tolist()
 
     @staticmethod
+    def key(item):
+        return item.odc
+
+
+    @staticmethod
     def get_color(first_point: tuple, second_point: tuple, third_point: tuple) -> tuple:
         color = (
             (first_point[0] + second_point[0] + third_point[0]) // 3,
@@ -133,21 +138,13 @@ class Triangulation(ImageFile):
 
         i, j = 0, 0
 
-        while i < len(self.smart_triangles) - 1:
-            while j < len(self.smart_triangles):
-                if (self.is_common(self.smart_triangles[i], self.smart_triangles[j]) and
-                        self.is_color_same(self.smart_triangles[i].fill, self.smart_triangles[j].fill, 40) and
-                        self.smart_triangles[j].is_counted is False):
-
-                    self.smart_triangles[i].is_counted = True
-                    self.smart_triangles[j].is_counted = True
-
-                    self.smart_triangles[j].fill = self.smart_triangles[i].fill
-                else:
-                    self.smart_triangles[i].is_counted = False
-                    self.smart_triangles[j].is_counted = False
-                j += 1
-            i += 1
+        self.smart_triangles.sort(key=Triangulation.key)
+        main = self.smart_triangles[0]
         for i in range(0, len(self.smart_triangles), 1):
-            self.draw.polygon(self.smart_triangles[i].triangle, self.smart_triangles[i].fill)
+            if self.smart_triangles[i].odc - main.odc < 56650:
+                self.draw.polygon(self.smart_triangles[i].triangle, self.smart_triangles[i].fill)
+            else:
+                main = self.smart_triangles[i]
+                self.draw.polygon(self.smart_triangles[i].triangle, self.smart_triangles[i].fill)
+
         self.image.save(r'results/' + self.file_name + '.png')

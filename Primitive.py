@@ -19,12 +19,14 @@ class Triangle:
         self.fill = fill
         self.is_counted = False
         self.number = number
+        self.odc = fill[0] * 256 ** 2 + fill[1] * 256 + fill[2]
 
 
 class Point:
     def __init__(self, xy: tuple):
         self.x = xy[0]
         self.y = xy[1]
+
 
 
 
