@@ -19,7 +19,7 @@ class YaDisk:
     def get_dir_info(self, dir_name='/Test_Dir/1'):
         for item in self.disk.listdir(dir_name):
             print(f"Name: {item['name']}")
-            print(f'Size: {item["size"]} байт')
+            print(f'Size: {item["size"]} byte')
             print(f"File type: {item['type']}")
             print(f"Document type: {item['media_type']}")
             print(f"Creation date: {item['created']}\n")
