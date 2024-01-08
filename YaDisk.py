@@ -5,6 +5,12 @@ from secret import yandex_token
 
 
 class YaDisk:
+
+    """
+    Image_Bot/Raw
+    Image_Bot/New
+    """
+
     def __init__(self):
         self.disk = yadisk.YaDisk(token=yandex_token)
         self.last_time = None
@@ -33,4 +39,4 @@ class YaDisk:
 
 
 y = YaDisk()
-y.check_raw_images()
+y.get_dir_info()
